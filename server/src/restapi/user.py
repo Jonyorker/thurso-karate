@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from ..modules.user.controller import UserController
-from ..modules.user.schema import (
+from modules.user.controller import UserController
+from modules.user.schema import (
     User,
     UserAddressCreate,
     UserCreate,
@@ -29,3 +29,8 @@ def create_user(user: UserCreate) -> User:
 @router.post("/upsert_user", tags=["users"])
 def upsert_user(user: UserUpsert):
     return UserController().upsert_user(user)
+
+@router.post("/user/{user_id}/address", tags=["users"])
+def upsert_user_address(user_id: int, address: UserAddressCreate):
+    return UserController().upsert_user_address(user_id, address)
+

@@ -23,11 +23,11 @@ class UserRepository:
         return self.db.query(model.User).offset(skip).limit(limit).all()
 
     def create_user(self, user: schema.UserCreate) -> schema.User:
-        db_user = model.User(**user.dict())
-        db_user.uuid = uuid4()
+        db_user = model.User(**user.model_dump())
         self.db.add(db_user)
         self.db.commit()
         self.db.refresh(db_user)
+
         return db_user
 
     def upsert_user(self, user: schema.UserUpsert) -> schema.User:
@@ -52,8 +52,10 @@ class UserRepository:
         db_user = self.get_user(user_id=user_id)
         if db_user is None:
             raise HTTPException(status_code=404, detail="User not found")
-        db_user_address = model.UserAddress(**address.dict())
+
+        db_user_address = model.UserAddress(**address.model_dump())
         db_user_address.user_id = user_id
+        db_user_address.province = 'QC'
         self.db.add(db_user_address)
         self.db.commit()
         self.db.refresh(db_user_address)

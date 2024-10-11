@@ -1,5 +1,4 @@
-from repository import UserRepository
-from schema import UserCreate
+from modules.user.repository import UserRepository
 
 
 class UserController:

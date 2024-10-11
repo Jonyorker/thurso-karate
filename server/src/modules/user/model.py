@@ -60,7 +60,7 @@ class User(CreatedAtMixin, Base):
     mom_name: str = Column(UnicodeText, nullable=True)
     dad_name: str = Column(UnicodeText, nullable=True)
     active: bool = Column(Boolean, nullable=False, default=True)
-    belt: Belt = Column(make_enum(Genders), nullable=False)
+    belt: Belt = Column(make_enum(Belt), nullable=False)
     notes: str = Column(UnicodeText, nullable=True)
     address = relationship("UserAddress", back_populates="user")
 

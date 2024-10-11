@@ -3,24 +3,19 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from enums import Genders, Belt, AddressType
+from modules.user.enums import Genders, Belt, AddressType
 
 
-class UserAddressBase(BaseModel):
-    user_id: int
+class UserAddressCreate(BaseModel):
     address: str
     city: str
-    province: str
     postal_code: str
     address_type: AddressType
 
 
-class UserAddressCreate(UserAddressBase):
-    pass
-
-
-class UserAddress(UserAddressBase):
+class UserAddress(UserAddressCreate):
     id: int
+    user_id: int
 
     class Config:
         orm_mode = True
